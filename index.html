@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>Calculadora de Macros</title>
+</head>
+
+<body>
+    <div class="container-fuid">
+        <div class="row">
+            <div class="col-6">
+                <div class="row form-group">
+                    <div class="col-4">
+                        <label for="sexo_m">Masculino</label>
+                        <input type="radio" name="sexo" id="sexo_m" value="M" checked>
+                    </div>
+                    <div class="col-4">
+                        <label for="sexo_f">Feminino</label>
+                        <input type="radio" name="sexo" id="sexo_f" value="F">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-4">
+                        <label for="ecto">Ectomorfo</label>
+                        <input type="radio" name="biotipo" id="ecto" value="ecto" checked>
+                    </div>
+                    <div class="col-4">
+                        <label for="endo">Endomorfo</label>
+                        <input type="radio" name="biotipo" id="endo" value="endo">
+                    </div>
+                    <div class="col-4">
+                        <label for="meso">Mesomorfo</label>
+                        <input type="radio" name="biotipo" id="meso" value="meso">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-4">
+                        <label for="peso">Peso</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="peso" value="80">
+                            <div class="input-group-append">
+                                <span class="input-group-text">KG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label for="altura">Altura</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="altura" value="180">
+                            <div class="input-group-append">
+                                <span class="input-group-text">centímetros</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label for="idade">Idade</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="idade" value="1">
+                            <div class="input-group-append">
+                                <span class="input-group-text">anos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-6">
+                        <label for="gasto_diario">Gasto Calórico Diário</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="gasto_diario" value="350">
+                            <div class="input-group-append">
+                                <span class="input-group-text">calorias</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="gasto_execicios">Gasto Calórico com Exercícios</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="gasto_execicios" value="0">
+                            <div class="input-group-append">
+                                <span class="input-group-text">calorias</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-success sucesso mt-3" style="display: none;" role="alert" id="alert-basal">
+                    <h5 class="alert-heading">Taxa metabólica basal: <span id="basal"></span> calorias</h5>
+                    <h5 class="alert-heading">Gasto Calórico Total: <span id="total"></span> calorias</h5>
+                </div>
+
+                
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Alimento</th>
+                            <th scope="col">Porção (g)</th>
+                            <th scope="col">Caboidratos (g)</th>
+                            <th scope="col">Proteínas (g)</th>
+                            <th scope="col">Gorduras (g)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_alimentos_ingeridos_dados">
+                        <tr>
+                            <th class="text-center" colspan="6">Nenhum Alimento Consumido</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <table class="table table-hover sucesso" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Macro</th>
+                            <th scope="col">Quantidade (g)</th>
+                            <th scope="col">Proporção</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_macros">
+                    </tbody>
+                </table>
+
+                <div class="alert alert-info" style="display: none;" role="alert">
+                <!-- <div class="alert alert-info sucesso" style="display: none;" role="alert"> -->
+                    Para hipertrofia, ideal ingerir sempre 20% acima do gasto total (<span id="consumo_base"></span>), tendo que consumir
+                    <span id="consumo"></span> calorias diárias
+                </div>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Alimento</th>
+                            <th scope="col">Quantidade (g)</th>
+                            <th scope="col">Caboidratos (g)</th>
+                            <th scope="col">Proteínas (g)</th>
+                            <th scope="col">Gorduras (g)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_alimentos_proporcao">
+                        <tr>
+                            <th class="text-center" colspan="6">Nenhum Alimento Consumido</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="script.js"></script>
+<script src="alimentos.js"></script>
+<script src="macros_diarios.js"></script>
+
+</html>
